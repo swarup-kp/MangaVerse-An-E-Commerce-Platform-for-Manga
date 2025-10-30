@@ -16,7 +16,6 @@ This project includes a complete, end-to-end user authentication system using **
 - 🚫 **Protected Routes** — Restricted pages like Profile and Admin Panel redirect unauthorized users to the login page.  
 - 🛒 **Shopping Cart** — Fully functional front-end cart using React Context API for state management.  
 - 💻 **Responsive Design** — Modern, mobile-friendly UI using Tailwind CSS.  
-- ⚙️ **Full-Stack CRUD Ready** — The API supports Create, Read, Update, and Delete operations for the manga catalog.
 
 ---
 
@@ -50,6 +49,47 @@ To run this project locally, you’ll need to set up both the **back-end server*
 
 ---
 
+## 🏗️ Project Structure
+
+```bash
+Manga-Store/
+├── backend/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/mangastore/
+│   │   │   │   ├── controller/          # REST Controllers
+│   │   │   │   ├── model/               # Entities (Manga, User, CartItem)
+│   │   │   │   ├── repository/          # JPA Repositories
+│   │   │   │   ├── service/             # Business Logic
+│   │   │   │   └── MangaStoreApplication.java
+│   │   │   └── resources/
+│   │   │       ├── application.properties  # MySQL configuration
+│   │   │       └── static/
+│   └── pom.xml                            # Maven dependencies
+
+├── frontend/
+│   ├── src/
+│   │   ├── components/                   # Reusable UI components
+│   │   ├── context/                      # Global state (CartContext, AuthContext)
+│   │   ├── pages/                        # Page components
+│   │   │   ├── Home.tsx
+│   │   │   ├── Shop.tsx
+│   │   │   ├── Cart.tsx
+│   │   │   ├── Login.tsx
+│   │   │   ├── Register.tsx
+│   │   │   └── AdminDashboard.tsx        # 🚧 Coming soon
+│   │   ├── App.tsx
+│   │   ├── main.tsx
+│   │   └── index.css
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   └── vite.config.ts
+
+└── README.md
+```
+---
+
 ### 🧩 Prerequisites
 
 Ensure you have the following installed:
@@ -61,8 +101,76 @@ Ensure you have the following installed:
 
 ---
 
-### ⚙️ 1. Back-End Setup (Spring Boot Server)
+## 🚧 Future Features
 
-#### Navigate to the backend folder:
+This project is a strong foundation. Here are the next steps planned for development:
+
+- 🧑‍💼 **Complete the Admin Panel:**  
+  Build out the UI in the Admin Panel to use the POST, PUT, and DELETE API endpoints.  
+  This will allow an administrator to add, edit, and delete manga directly from the website.
+
+- 🔐 **Role-Based Authorization:**  
+  Implement a distinction between `ROLE_USER` and `ROLE_ADMIN`, ensuring only admins can access the Admin Panel and its powerful APIs.
+
+- 💳 **Checkout & Order History:**  
+  Build a full checkout process and add an **Order History** section to the user's profile page.
+
+- 🔍 **Server-Side Filtering:**  
+  Move the shop page's search and category filtering logic to the back-end to improve performance as the catalog grows.
+
+
+---
+
+## ⚙️ Setup Instructions
+
+### 🖥️ Frontend (React + Vite + Tailwind CSS)
+
+Navigate to the `frontend` folder:
 ```bash
-cd mangaverse/backend
+   cd frontend
+```
+Install dependencies:
+
+```bash
+npm install
+```
+Start the development server:
+
+```bash
+npm run dev
+```
+Open your browser at:
+```
+http://localhost:5173
+```
+
+**⚙️ Backend (Spring Boot + MySQL)**
+
+Navigate to the backend folder:
+
+```
+cd backend
+```
+Create a MySQL database:
+
+```
+CREATE DATABASE manga_store;
+```
+Update your application.properties file:
+```
+spring.datasource.url=jdbc:mysql://localhost:3306/manga_store
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+server.port=8080
+```
+Run the backend application:
+```
+mvn spring-boot:run
+```
+The API should now be running at:
+```
+http://localhost:8080
+```
